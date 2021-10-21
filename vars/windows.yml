@@ -1,0 +1,9 @@
+tower_server: 
+tower_jobid: 24
+host_config_key: 
+bootstrap_callback_uuid: 
+bootstrap_callback_job_id: 91
+fact_callback_uuid: 
+fact_callback_job_id: 63
+conf_callback_uuid: 
+conf_callback_job_id: 93
