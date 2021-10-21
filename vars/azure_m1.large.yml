@@ -1,0 +1,8 @@
+#vars/azure_m1.large.yml
+#Azure defines it's sizing on it's own terms
+#this vars file matches it with the other platforms to
+#make it universal.
+
+#m1.large
+---
+azure_vm_size: Standard_A4_v2
