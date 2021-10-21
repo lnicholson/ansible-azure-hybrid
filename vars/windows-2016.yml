@@ -1,0 +1,7 @@
+#vars/windows-2019.yml
+#This vars file is just to map variables to that of a single definition in a Survey selection.
+image_offer: 'WindowsServer'
+image_publisher: 'MicrosoftWindowsServer'
+image_sku: '2016-Datacenter'
+image_version: 'latest'
+cloud_os: windows
