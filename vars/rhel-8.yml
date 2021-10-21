@@ -1,0 +1,7 @@
+#vars/rhel-8.yml
+#This vars file is just to map variables to that of a single definition in a Survey selection.
+image_offer: 'RHEL'
+image_publisher: 'RedHat'
+image_sku: '8-LVM'
+image_version: 'latest'
+cloud_os: linux
