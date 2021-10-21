@@ -1,0 +1,61 @@
+#setup-azure.yaml
+#This playbook is a quick and easy way to setup an Azure infrastructure for demo purposes
+#of a hybrid cloud/platform infrastructure.
+---
+- hosts: all
+
+  tasks:
+    - name: Create resource group
+      azure_rm_resourcegroup:
+        name: rg-rh_demos
+        location: eastus
+
+    - name: Create virtual network
+      azure_rm_virtualnetwork:
+        resource_group: rg-rh_demos
+        name: RHDemos
+        address_prefixes: "10.0.0.0/16"
+
+    - name: Add subnet
+      azure_rm_subnet:
+        resource_group: rg-rh_demos
+        name: rh_demosSubnet
+        address_prefix: "10.0.1.0/24"
+        virtual_network: RHDemos
+
+    - name: Create public IP address
+      azure_rm_publicipaddress:
+        resource_group: rg-rh_demos
+        allocation_method: Static
+        name: rh_demosPublicIP
+      register: output_ip_address
+
+    - name: Output public IP
+      debug:
+        msg: "The public IP is {{ output_ip_address.state.ip_address }}"
+
+    - name: Create Network Security Group
+      azure_rm_securitygroup:
+        resource_group: rg-rh_demos
+        name: windows_base
+        rules:
+          - name: 'allow_rdp'
+            protocol: Tcp
+            destination_port_range: 3389
+            access: Allow
+            priority: 1001
+            direction: Inbound
+          - name: 'allow_snmp_traffic'
+            protocol: Tcp
+            destination_port_range: 161
+            access: Allow
+            priority: 1002
+            direction: Inbound
+          - name: 'allow_powershell_remoting_winrm'
+            protocol: Tcp
+            destination_port_range:
+              - 5985
+              - 5986
+            access: Allow
+            priority: 1003
+            direction: Inbound
